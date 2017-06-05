@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="PageCalculator.js"></script>
+<script>
+    var calculator = new PageCalculator(['a','b','c','d','e','f'], 4);
+
+    console.log(calculator.getTotalItems()); // should === 6
+
+    console.log(calculator.getTotalPages()); // should === 2
+
+    console.log(calculator.getItemsOnPage(0)); // should === 4
+
+    console.log(calculator.getItemsOnPage(1)); // last page ­ should === 2
+
+    console.log(calculator.getItemsOnPage(2)); // should === ­1 since the page is invalid
+
+    console.log(calculator.getPageIndexByItem(5)); // should === 1 (zero based index)
+
+    console.log(calculator.getPageIndexByItem(2)); // should === 0
+
+    console.log(calculator.getPageIndexByItem(20)); // should === ­1
+
+    console.log(calculator.getPageIndexByItem(-10)); // should === ­1
+</script>
+
+</body>
+</html>
