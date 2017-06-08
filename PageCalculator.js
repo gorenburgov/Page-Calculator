@@ -94,8 +94,10 @@ PageCalculator.prototype.getTotalItems = function() {
  * @return {number}
  */
 PageCalculator.prototype.getTotalPages = function() {
-    if (this.itemsPerPage === 0) {
+    if (this.itemsPerPage  ===  0 && this.collection.length > 0) {
         return 1;
+    } else if (this.collection.length === 0) {
+        return 0;
     } else {
         return Math.ceil(this.collection.length / this.itemsPerPage);
     }
@@ -108,7 +110,7 @@ PageCalculator.prototype.getTotalPages = function() {
  */
 PageCalculator.prototype.getItemsOnPage = function(pageNumber) {
     var pageCount = this.getTotalPages();
-    if (pageNumber > pageCount - 1) {
+    if (pageNumber > pageCount - 1 || pageNumber < 0) {
         return -1;
     }
     if (this.itemsPerPage === 0) {
@@ -131,5 +133,5 @@ PageCalculator.prototype.getPageIndexByItem = function(itemIndex) {
     if (itemIndex < 0 || itemIndex > this.getTotalItems() - 1) {
         return -1;
     };
-    return this.itemsPerPage === 0 ? 1 : Math.floor(itemIndex/this.itemsPerPage);
+    return this.itemsPerPage === 0 ? 0 : Math.floor(itemIndex/this.itemsPerPage);
 }

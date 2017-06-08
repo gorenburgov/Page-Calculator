@@ -7,25 +7,175 @@
 <body>
 <script src="PageCalculator.js"></script>
 <script>
+
+    function assert(value, should) {
+
+        if (value !== should) {
+            console.error("error:" + value +" not equal " + should);
+        } else {
+            console.log("OK:" + value +" equal " + should)
+        }
+    }
+
     var calculator = new PageCalculator(['a','b','c','d','e','f'], 4);
 
-    console.log(calculator.getTotalItems()); // should === 6
+    assert(calculator.getTotalItems(), 6); // should === 6
+    assert(calculator.getTotalPages(),2); // should === 2
+    assert(calculator.getItemsOnPage(0),4); // should === 4
+    assert(calculator.getItemsOnPage(1),2); // last page ­ should === 2
+    assert(calculator.getItemsOnPage(2), -1); // should === ­1 since the page is invalid
+    assert(calculator.getPageIndexByItem(5),1); // should === 1 (zero based index)
+    assert(calculator.getPageIndexByItem(6), -1); // should === -1 (zero based index)
+    assert(calculator.getPageIndexByItem(0),0); // should === 0
+    assert(calculator.getPageIndexByItem(2),0); // should === 0
+    assert(calculator.getPageIndexByItem(3),0); // should === 0
+    assert(calculator.getPageIndexByItem(4),1); // should === 1
+    assert(calculator.getPageIndexByItem(5),1); // should === 1
+    assert(calculator.getPageIndexByItem(20),-1); // should === ­1
+    assert(calculator.getPageIndexByItem(-10),-1); // should === ­1
 
-    console.log(calculator.getTotalPages()); // should === 2
+    var calculator = new PageCalculator(['a','b','c','d','e','f'], 6);
+    assert(calculator.getTotalItems(), 6);
+    assert(calculator.getTotalPages(),1);
+    assert(calculator.getItemsOnPage(0),6);
+    assert(calculator.getItemsOnPage(1),-1);
+    assert(calculator.getItemsOnPage(2), -1);
+    assert(calculator.getPageIndexByItem(5),0);
+    assert(calculator.getPageIndexByItem(6), -1);
+    assert(calculator.getPageIndexByItem(0),0);
+    assert(calculator.getPageIndexByItem(2),0);
+    assert(calculator.getPageIndexByItem(3),0);
+    assert(calculator.getPageIndexByItem(4),0);
+    assert(calculator.getPageIndexByItem(5),0);
+    assert(calculator.getPageIndexByItem(20),-1);
+    assert(calculator.getPageIndexByItem(-10),-1);
 
-    console.log(calculator.getItemsOnPage(0)); // should === 4
+    var calculator = new PageCalculator(['a','b','c','d','e','f'], 2);
+    assert(calculator.getTotalItems(), 6);
+    assert(calculator.getTotalPages(),3);
+    assert(calculator.getItemsOnPage(0),2);
+    assert(calculator.getItemsOnPage(1),2);
+    assert(calculator.getItemsOnPage(2), 2);
+    assert(calculator.getPageIndexByItem(5),2);
+    assert(calculator.getPageIndexByItem(6), -1);
+    assert(calculator.getPageIndexByItem(0),0);
+    assert(calculator.getPageIndexByItem(2),1);
+    assert(calculator.getPageIndexByItem(3),1);
+    assert(calculator.getPageIndexByItem(4),2);
+    assert(calculator.getPageIndexByItem(5),2);
+    assert(calculator.getPageIndexByItem(20),-1);
+    assert(calculator.getPageIndexByItem(-10),-1);
 
-    console.log(calculator.getItemsOnPage(1)); // last page ­ should === 2
+    var calculator = new PageCalculator(['a','b','c','d','e','f'], 7);
+    assert(calculator.getTotalItems(), 6);
+    assert(calculator.getTotalPages(),1);
+    assert(calculator.getItemsOnPage(0),6);
+    assert(calculator.getItemsOnPage(1),-1);
+    assert(calculator.getItemsOnPage(2), -1);
+    assert(calculator.getPageIndexByItem(5),0);
+    assert(calculator.getPageIndexByItem(6), -1);
+    assert(calculator.getPageIndexByItem(0),0);
+    assert(calculator.getPageIndexByItem(2),0);
+    assert(calculator.getPageIndexByItem(3),0);
+    assert(calculator.getPageIndexByItem(4),0);
+    assert(calculator.getPageIndexByItem(5),0);
+    assert(calculator.getPageIndexByItem(20),-1);
+    assert(calculator.getPageIndexByItem(-10),-1);
 
-    console.log(calculator.getItemsOnPage(2)); // should === ­1 since the page is invalid
+    var calculator = new PageCalculator(['a','b','c','d','e','f'], 0);
+    assert(calculator.getTotalItems(), 6);
+    assert(calculator.getTotalPages(),1);
+    assert(calculator.getItemsOnPage(0),6);
+    assert(calculator.getItemsOnPage(1),-1);
+    assert(calculator.getItemsOnPage(2), -1);
+    assert(calculator.getPageIndexByItem(5),0);
+    assert(calculator.getPageIndexByItem(6), -1);
+    assert(calculator.getPageIndexByItem(0),0);
+    assert(calculator.getPageIndexByItem(2),0);
+    assert(calculator.getPageIndexByItem(3),0);
+    assert(calculator.getPageIndexByItem(4),0);
+    assert(calculator.getPageIndexByItem(5),0);
+    assert(calculator.getPageIndexByItem(20),-1);
+    assert(calculator.getPageIndexByItem(-10),-1);
 
-    console.log(calculator.getPageIndexByItem(5)); // should === 1 (zero based index)
+    var calculator = new PageCalculator(['a'], 0);
+    assert(calculator.getTotalItems(), 1);
+    assert(calculator.getTotalPages(),1);
+    assert(calculator.getItemsOnPage(0),1);
+    assert(calculator.getItemsOnPage(1),-1);
+    assert(calculator.getItemsOnPage(2), -1);
+    assert(calculator.getPageIndexByItem(5),-1);
+    assert(calculator.getPageIndexByItem(0),0);
+    assert(calculator.getPageIndexByItem(1),-1);
+    assert(calculator.getPageIndexByItem(20),-1);
+    assert(calculator.getPageIndexByItem(-10),-1);
 
-    console.log(calculator.getPageIndexByItem(2)); // should === 0
+    var calculator = new PageCalculator(['a'], 1);
+    assert(calculator.getTotalItems(), 1);
+    assert(calculator.getTotalPages(),1);
+    assert(calculator.getItemsOnPage(0),1);
+    assert(calculator.getItemsOnPage(1),-1);
+    assert(calculator.getItemsOnPage(2), -1);
+    assert(calculator.getPageIndexByItem(5),-1);
+    assert(calculator.getPageIndexByItem(6), -1);
+    assert(calculator.getPageIndexByItem(0),0);
+    assert(calculator.getPageIndexByItem(1),-1);
+    assert(calculator.getPageIndexByItem(20),-1);
+    assert(calculator.getPageIndexByItem(-10),-1);
 
-    console.log(calculator.getPageIndexByItem(20)); // should === ­1
+    var calculator = new PageCalculator(['a'], 4);
+    assert(calculator.getTotalItems(), 1);
+    assert(calculator.getTotalPages(),1);
+    assert(calculator.getItemsOnPage(0),1);
+    assert(calculator.getItemsOnPage(1),-1);
+    assert(calculator.getItemsOnPage(2), -1);
+    assert(calculator.getPageIndexByItem(5),-1);
+    assert(calculator.getPageIndexByItem(6), -1);
+    assert(calculator.getPageIndexByItem(0),0);
+    assert(calculator.getPageIndexByItem(2),-1);
+    assert(calculator.getPageIndexByItem(1),-1);
+    assert(calculator.getPageIndexByItem(20),-1);
+    assert(calculator.getPageIndexByItem(-10),-1);
 
-    console.log(calculator.getPageIndexByItem(-10)); // should === ­1
+    var calculator = new PageCalculator([], 0);
+    assert(calculator.getTotalItems(), 0);
+    assert(calculator.getTotalPages(),0);
+    assert(calculator.getItemsOnPage(0),-1);
+    assert(calculator.getItemsOnPage(1),-1);
+    assert(calculator.getItemsOnPage(2), -1);
+    assert(calculator.getPageIndexByItem(5),-1);
+    assert(calculator.getPageIndexByItem(0),-1);
+    assert(calculator.getPageIndexByItem(1),-1);
+    assert(calculator.getPageIndexByItem(20),-1);
+    assert(calculator.getPageIndexByItem(-10),-1);
+
+    var calculator = new PageCalculator([], 1);
+    assert(calculator.getTotalItems(), 0);
+    assert(calculator.getTotalPages(),0);
+    assert(calculator.getItemsOnPage(0),-1);
+    assert(calculator.getItemsOnPage(1),-1);
+    assert(calculator.getItemsOnPage(2), -1);
+    assert(calculator.getPageIndexByItem(5),-1);
+    assert(calculator.getPageIndexByItem(6), -1);
+    assert(calculator.getPageIndexByItem(0),-1);
+    assert(calculator.getPageIndexByItem(1),-1);
+    assert(calculator.getPageIndexByItem(20),-1);
+    assert(calculator.getPageIndexByItem(-10),-1);
+
+    var calculator = new PageCalculator([], 2);
+    assert(calculator.getTotalItems(), 0);
+    assert(calculator.getTotalPages(),0);
+    assert(calculator.getItemsOnPage(0),-1);
+    assert(calculator.getItemsOnPage(1),-1);
+    assert(calculator.getItemsOnPage(2), -1);
+    assert(calculator.getPageIndexByItem(5),-1);
+    assert(calculator.getPageIndexByItem(6), -1);
+    assert(calculator.getPageIndexByItem(0),-1);
+    assert(calculator.getPageIndexByItem(1),-1);
+    assert(calculator.getPageIndexByItem(20),-1);
+    assert(calculator.getPageIndexByItem(-10),-1);
+
+
 </script>
 
 </body>
